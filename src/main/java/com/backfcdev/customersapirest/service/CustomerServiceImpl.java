@@ -4,13 +4,13 @@ import com.backfcdev.customersapirest.exception.CustomerNotFoundException;
 import com.backfcdev.customersapirest.model.Customer;
 import com.backfcdev.customersapirest.model.dto.CustomerDTO;
 import com.backfcdev.customersapirest.repository.ICustomerRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 public class CustomerServiceImpl implements ICustomerService{
     private final ModelMapper modelMapper = new ModelMapper();
