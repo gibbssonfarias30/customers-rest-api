@@ -5,7 +5,6 @@ import com.backfcdev.customersapirest.model.Customer;
 import com.backfcdev.customersapirest.model.dto.CustomerDTO;
 import com.backfcdev.customersapirest.repository.ICustomerRepository;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +12,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class CustomerServiceImpl implements ICustomerService{
-    private final ModelMapper modelMapper = new ModelMapper();
     private final ICustomerRepository customerRepository;
 
     @Override
@@ -23,7 +21,6 @@ public class CustomerServiceImpl implements ICustomerService{
 
     @Override
     public Customer save(CustomerDTO customerDTO) {
-        Customer customer = modelMapper.map(customerDTO, Customer.class);
         return customerRepository.save(customer);
     }
 
@@ -37,7 +34,6 @@ public class CustomerServiceImpl implements ICustomerService{
     public Customer update(long id, CustomerDTO customerDTO) {
         Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new CustomerNotFoundException(id));
-        modelMapper.map(customerDTO, customer);
 
         return customerRepository.save(customer);
     }
