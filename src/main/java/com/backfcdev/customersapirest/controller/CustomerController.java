@@ -3,7 +3,6 @@ package com.backfcdev.customersapirest.controller;
 import com.backfcdev.customersapirest.model.Customer;
 import com.backfcdev.customersapirest.model.dto.CustomerDTO;
 import com.backfcdev.customersapirest.service.ICustomerService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -20,28 +19,35 @@ public class CustomerController {
     private final ModelMapper mapper;
 
     @GetMapping
-    ResponseEntity<List<Customer>> findAll(){
-        return ResponseEntity<>(customerService.findAll(), HttpStatus.OK);
+    ResponseEntity<List<CustomerDTO>> findAll(){
+        return ResponseEntity.ok(customerService.findAll()
+                .stream()
+                .map(this::convertToDto)
+                .toList());
     }
 
     @PostMapping
-    ResponseEntity<?> saveCustomer(@RequestBody CustomerDTO customerDTO){
-        return new ResponseEntity<>(customerService.save(customerDTO), HttpStatus.CREATED);
+    ResponseEntity<CustomerDTO> save(@RequestBody CustomerDTO dto){
+        Customer customer = customerService.save(convertToEntity(dto));
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(convertToDto(customer));
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<Customer> findCustomerById(@PathVariable long id){
-        return new ResponseEntity<>(customerService.findById(id), HttpStatus.OK);
+    ResponseEntity<CustomerDTO> findById(@PathVariable long id){
+        return ResponseEntity.ok(convertToDto(customerService.findById(id)));
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<Customer> updateCustomer(@PathVariable long id, @RequestBody CustomerDTO customerDTO){
-        return new ResponseEntity<>(customerService.update(id, customerDTO), HttpStatus.OK);
+    ResponseEntity<CustomerDTO> update(@PathVariable long id, @RequestBody CustomerDTO dto){
+        Customer customer = customerService.update(id, convertToEntity(dto));
+        return ResponseEntity.ok(convertToDto(customer));
     }
 
     @DeleteMapping("/{id}")
-    ResponseEntity<Long> deleteCustomerById(@PathVariable Long id){
-        return new ResponseEntity<>(customerService.deleteById(id), HttpStatus.NO_CONTENT);
+    ResponseEntity<Void> delete(@PathVariable Long id){
+        customerService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 
