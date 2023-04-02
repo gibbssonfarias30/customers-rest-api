@@ -20,7 +20,7 @@ public class CustomerServiceImpl implements ICustomerService{
     }
 
     @Override
-    public Customer save(CustomerDTO customerDTO) {
+    public Customer save(Customer customer) {
         return customerRepository.save(customer);
     }
 
@@ -31,18 +31,17 @@ public class CustomerServiceImpl implements ICustomerService{
     }
 
     @Override
-    public Customer update(long id, CustomerDTO customerDTO) {
-        Customer customer = customerRepository.findById(id)
+    public Customer update(long id, Customer customer) {
+        customerRepository.findById(id)
                 .orElseThrow(() -> new CustomerNotFoundException(id));
 
         return customerRepository.save(customer);
     }
 
     @Override
-    public long deleteById(long id) {
-        Customer customer = customerRepository.findById(id)
+    public void delete(long id) {
+        customerRepository.findById(id)
                 .orElseThrow(() -> new CustomerNotFoundException(id));
-        customerRepository.deleteById(customer.getId());
-        return customer.getId();
+        customerRepository.deleteById(id);
     }
 }
