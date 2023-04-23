@@ -1,5 +1,6 @@
-package com.backfcdev.customersapirest.exception;
+package com.backfcdev.customersapirest.exception.handler;
 
+import com.backfcdev.customersapirest.exception.CustomerNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -10,7 +11,7 @@ import java.net.URI;
 import java.time.Instant;
 
 @RestControllerAdvice
-public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
+public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(CustomerNotFoundException.class)
     ProblemDetail handleCustomerNotFoundException(CustomerNotFoundException ex){
