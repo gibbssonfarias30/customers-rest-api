@@ -2,7 +2,6 @@ package com.backfcdev.customersapirest.service;
 
 import com.backfcdev.customersapirest.exception.CustomerNotFoundException;
 import com.backfcdev.customersapirest.model.Customer;
-import com.backfcdev.customersapirest.model.dto.CustomerDTO;
 import com.backfcdev.customersapirest.repository.ICustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,13 +26,13 @@ public class CustomerServiceImpl implements ICustomerService{
     @Override
     public Customer findById(Long id) {
         return customerRepository.findById(id)
-                .orElseThrow(() -> new CustomerNotFoundException(id));
+                .orElseThrow(CustomerNotFoundException::new);
     }
 
     @Override
     public Customer update(long id, Customer customer) {
         customerRepository.findById(id)
-                .orElseThrow(() -> new CustomerNotFoundException(id));
+                .orElseThrow(CustomerNotFoundException::new);
 
         return customerRepository.save(customer);
     }
@@ -41,7 +40,7 @@ public class CustomerServiceImpl implements ICustomerService{
     @Override
     public void delete(long id) {
         customerRepository.findById(id)
-                .orElseThrow(() -> new CustomerNotFoundException(id));
+                .orElseThrow(CustomerNotFoundException::new);
         customerRepository.deleteById(id);
     }
 }
