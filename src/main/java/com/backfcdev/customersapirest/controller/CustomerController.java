@@ -1,7 +1,7 @@
 package com.backfcdev.customersapirest.controller;
 
 import com.backfcdev.customersapirest.model.Customer;
-import com.backfcdev.customersapirest.model.dto.CustomerDTO;
+import com.backfcdev.customersapirest.dto.CustomerDTO;
 import com.backfcdev.customersapirest.service.ICustomerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

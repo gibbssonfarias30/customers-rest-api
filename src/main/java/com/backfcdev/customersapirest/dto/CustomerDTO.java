@@ -1,4 +1,4 @@
-package com.backfcdev.customersapirest.model.dto;
+package com.backfcdev.customersapirest.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
